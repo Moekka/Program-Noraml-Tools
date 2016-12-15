@@ -129,7 +129,8 @@ function connet_type_init()
     traceprint("count:" &n)
     
     for(var i=0;i < n;i++)
-        comboaddtext("combobox1", retarr[i])
+        ret=strcut(retarr[i],1)
+        comboaddtext("combobox1", ret)
         traceprint(retarr[i])
     end
     combosetcursel("combobox1",1) 
