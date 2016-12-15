@@ -159,24 +159,45 @@ function 编程常用工具_init()
     connet_type_init()
 end
 
-
+//刷新
 function button1_click()
     
     ipv4_address_show()
     
 end
 
-
+//添加地址
 function button2_click()
-    controlopenwindow("添加界面", true)
+    var cmd_str
+    var ip_addr = editgettext("edit0")
+    var mask = editgettext("edit1")
+    var gateway = editgettext("edit2")
+    var conn_str=combogettext("combobox1") 
+    
+    if(strcmp(ip_addr, "") == 0)
+        messagebox("请输入正确的IP地址!","提示")
+        return
+    end
+    if(strcmp(mask, "") == 0)
+        messagebox("请输入正确的掩码!","提示")
+        return
+    end
+    cmd_str = strformat("netsh interface ip add address name=\"%s\" addr=%s mask=%s",conn_str,ip_addr, mask)
+    traceprint(cmd_str)
+    exec_cmd(cmd_str)
+    //    controlopenwindow("添加界面", true)
 end
 
-
+//删除地址
 function button3_click()
+    var cmd_str
     var ip_addr = listgetchecktext("list0")
-    var id=listgetcursel("list0") 
+    //    var id=listgetcursel("list0")
+    var conn_str=combogettext("combobox1")
     
-    listdeletetext("list0",id)
-    //    cmd_str = strformat("netsh interface ip delete address name=\"%s\" addr=%s",conn_str, ip_addr)
     
+    //    listdeletetext("list0",id)
+    cmd_str = strformat("netsh interface ip delete address name=\"%s\" addr=%s",conn_str, ip_addr)
+    traceprint(cmd_str)
+    exec_cmd(cmd_str)
 end
